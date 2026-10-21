@@ -65,7 +65,7 @@ Ketemu bug atau angka yang beda dengan GUI APIC? Kabari Mushab Hamid. Teks error
 
 ### Notes
 
-Kalau tetap muncul peringatan SmartScreen ("Windows protected your PC"), klik **More info** > **Run anyway**.
+Kalau muncul peringatan SmartScreen ("Windows protected your PC"), klik **More info** > **Run anyway**.
 Peringatan ini muncul karena aplikasinya belum banyak diunduh, bukan karena aplikasinya berbahaya.
 
 ## Mulai pakai
