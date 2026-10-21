@@ -63,13 +63,7 @@ Ketemu bug atau angka yang beda dengan GUI APIC? Kabari Mushab Hamid. Teks error
 - `FabricDesk.exe`: aplikasinya (~40 MB)
 - `FabricDesk-publisher.cer`: sertifikat penerbit (cukup dipasang sekali per laptop)
 
-### Pasang sertifikat (sekali saja per laptop)
-
-Exe sudah ditandatangani digital. Supaya Windows mengenali penerbitnya:
-
-1. Double-click `FabricDesk-publisher.cer` > **Install Certificate** > pilih **Local Machine**.
-2. Pilih **Place all certificates in the following store** > **Trusted Root Certification Authorities** > Finish.
-3. Ulangi langkah 1-2, kali ini pilih store **Trusted Publishers**.
+### Notes
 
 Kalau tetap muncul peringatan SmartScreen ("Windows protected your PC"), klik **More info** > **Run anyway**.
 Peringatan ini muncul karena aplikasinya belum banyak diunduh, bukan karena aplikasinya berbahaya.
