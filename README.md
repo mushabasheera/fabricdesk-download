@@ -3,8 +3,7 @@
 Windows desktop app for day-to-day **Cisco ACI & Nexus Dashboard** operations. Multi-customer, runs locally on
 your laptop. Built by Mushab Hamid.
 
-**[Download the latest version](https://github.com/mushabasheera/fabricdesk-download/releases/latest)**. No GitHub
-account needed. See [Download & install](#download--install).
+**[Download the latest version](https://github.com/mushabasheera/fabricdesk-download/releases/latest)**. See [Download & install](#download--install).
 
 Current version: **v0.5.0** (23 Oct 2026).
 
@@ -12,9 +11,9 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Features
 
-**Real fabric**: ✅ tested on a real fabric (ACI 6.1, two sites) · ⚠️ partly tested · ⏳ not tested on a real fabric yet
+Tested on a real fabric (ACI 6.1, two sites) · ⚠️ partly tested · ⏳ not tested on a real fabric yet
 
-| Menu | What it does | Real fabric |
+| Menu | What it does | Result on Fabric |
 |---|---|---|
 | **Endpoint Locator** | Find an IP / MAC, or pull all endpoints (filter by tenant / VRF / EPG) -> leaf / port, VLAN, tenant, VRF, BD, EPG, ESG, last change | ✅ (endpoint lookup, also used by Contract Check and Request Triage) |
 | **Contract Check** | Is `src -> dst:port` permitted by ACI policy? Checks direct contracts, contract interfaces, vzAny, preferred group, unenforced VRF, contracts in tenant common, cross-VRF scope, stretched / shadow objects, ext-EPG (longest prefix, flags the 0.0.0.0/0 catch-all), firewall boundary. Multi-site: checked in **both sites** (`PARTIAL` when only one site permits). Shows who is the *consumer* and the *provider*. Leave the port empty to see which ports the contract opens. Manual input or import a request form (CSV / XLSX) | ✅ |
