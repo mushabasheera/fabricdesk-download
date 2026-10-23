@@ -12,20 +12,23 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Features
 
-| Menu | What it does |
-|---|---|
-| **Endpoint Locator** | Find an IP / MAC, or pull all endpoints (filter by tenant / VRF / EPG) -> leaf / port, VLAN, tenant, VRF, BD, EPG, ESG, last change |
-| **Contract Check** | Is `src -> dst:port` permitted by ACI policy? Checks direct contracts, contract interfaces, vzAny, preferred group, unenforced VRF, contracts in tenant common, cross-VRF scope, stretched / shadow objects, ext-EPG (longest prefix, flags the 0.0.0.0/0 catch-all), firewall boundary. Multi-site: checked in **both sites** (`PARTIAL` when only one site permits). Shows who is the *consumer* and the *provider*. Leave the port empty to see which ports the contract opens. Manual input or import a request form (CSV / XLSX) |
-| **Request Triage** (new) | Upload a connectivity request form (Excel / CSV) or paste requests from chat. The app finds the columns itself (multi-row headers, merged cells, "same as above" blank cells, IP ranges, hostnames, TCP/UDP, mixed port lists), checks every row against the fabric and sorts it into **New contract / Add ports / Partial / Firewall / Not in fabric / Manual / Open**. Flags rows the form marks as done that are not open yet, and lists the **changes needed** per consumer / provider. Column mappings can be saved per customer |
-| **Ping** | Multi-threaded from the laptop (IP / CIDR / range / file input, live results, Stop button, log) or from a leaf (`iping -V tenant:vrf` over SSH) |
-| **Traceroute** | From the laptop (`tracert`) or from a leaf (`itraceroute -V tenant:vrf`) |
-| **API Runner** | **Templates** (an ordered list of API calls, e.g. "Configure Contract") -> **Library** (create API calls / import from Postman, assign to a template) -> **Environments** (Postman-style variables, several sets, Postman environment import). Run a template or selected API calls: choose environment + site, delay, CSV / XLSX test data (1 row = 1 iteration), **Preview iterations** before running, on error: stop / skip iteration / continue, result + error message **per iteration**. Login and tokens are handled by the app (no credentials needed in environments) |
-| **Change Diff** | Snapshot the config (tenant / `uni/infra`) before and after a change, then compare (added / removed / modified, alert when objects were deleted) |
-| **Policy Hygiene** (new) | Leftover and broken policy per site: broken contract references, contracts that permit nothing, half-used or unused contracts, unused filters, ESGs without selectors, EPGs without a bridge domain, empty BDs, unused VRFs. Severity + suggested action, Excel export |
-| **Fault & Health** | Faults since a given time (by severity / keyword) + fabric, node and tenant health |
-| **Leaf Health** | Per leaf: health score, CPU, memory, faults on that leaf, TCAM / capacity, port list, one line per port (status, speed, EPG / VLAN summary, SFP, CRC, errors, LLDP / CDP neighbor). **Click a port** -> details: reason the port is down, EPGs and VLANs on the port (encap and internal VLAN, trunk / access, through a port-channel / vPC, deployed or only configured), error counters, transceiver (PID / serial), optical Rx / Tx / temperature with warn / alarm thresholds (copper / UTP: *Not available*), LLDP / CDP |
-| **Resource Check** | Free VLANs per pool / per IPG (AAEP -> domain -> pool), free ports per leaf, TCAM / capacity per leaf (Policy CAM, L2 / L3 endpoints, LPM, VLAN) + zoning rule count |
-| **Settings** | Customer wizard (APIC sites, NDO / ND cluster, SSH to leaf, Test Connection, firewall boundary, request-form column mapping), Export / Import per customer (pick which credentials, API Runner library and form templates go into the file, and what to take on import), Audit Log, Check for updates |
+**Real fabric**: ✅ tested on a real ACI 6.1 multi-site fabric · ⚠️ partly tested · ⏳ not tested on a real fabric yet
+(only against the built-in fake APIC).
+
+| Menu | What it does | Real fabric |
+|---|---|---|
+| **Endpoint Locator** | Find an IP / MAC, or pull all endpoints (filter by tenant / VRF / EPG) -> leaf / port, VLAN, tenant, VRF, BD, EPG, ESG, last change | ✅ (endpoint lookup, also used by Contract Check and Request Triage) |
+| **Contract Check** | Is `src -> dst:port` permitted by ACI policy? Checks direct contracts, contract interfaces, vzAny, preferred group, unenforced VRF, contracts in tenant common, cross-VRF scope, stretched / shadow objects, ext-EPG (longest prefix, flags the 0.0.0.0/0 catch-all), firewall boundary. Multi-site: checked in **both sites** (`PARTIAL` when only one site permits). Shows who is the *consumer* and the *provider*. Leave the port empty to see which ports the contract opens. Manual input or import a request form (CSV / XLSX) | ✅ |
+| **Request Triage** (new) | Upload a connectivity request form (Excel / CSV) or paste requests from chat. The app finds the columns itself (multi-row headers, merged cells, "same as above" blank cells, IP ranges, hostnames, TCP/UDP, mixed port lists), checks every row against the fabric and sorts it into **New contract / Add ports / Partial / Firewall / Not in fabric / Manual / Open**. Flags rows the form marks as done that are not open yet, and lists the **changes needed** per consumer / provider. Column mappings can be saved per customer | ✅ (~800-row form, two sites, about 10 s) |
+| **Ping** | Multi-threaded from the laptop (IP / CIDR / range / file input, live results, Stop button, log) or from a leaf (`iping -V tenant:vrf` over SSH) | ⚠️ laptop mode (needs no fabric API); leaf mode ⏳ |
+| **Traceroute** | From the laptop (`tracert`) or from a leaf (`itraceroute -V tenant:vrf`) | ⚠️ laptop mode (needs no fabric API); leaf mode ⏳ |
+| **API Runner** | **Templates** (an ordered list of API calls, e.g. "Configure Contract") -> **Library** (create API calls / import from Postman, assign to a template) -> **Environments** (Postman-style variables, several sets, Postman environment import). Run a template or selected API calls: choose environment + site, delay, CSV / XLSX test data (1 row = 1 iteration), **Preview iterations** before running, on error: stop / skip iteration / continue, result + error message **per iteration**. Login and tokens are handled by the app (no credentials needed in environments) | ⚠️ against NDO; APIC writes ⏳ |
+| **Change Diff** | Snapshot the config (tenant / `uni/infra`) before and after a change, then compare (added / removed / modified, alert when objects were deleted) | ⏳ |
+| **Policy Hygiene** (new) | Leftover and broken policy per site: broken contract references, contracts that permit nothing, half-used or unused contracts, unused filters, ESGs without selectors, EPGs without a bridge domain, empty BDs, unused VRFs. Severity + suggested action, Excel export | ✅ (findings checked by hand) |
+| **Fault & Health** | Faults since a given time (by severity / keyword) + fabric, node and tenant health | ⏳ |
+| **Leaf Health** | Per leaf: health score, CPU, memory, faults on that leaf, TCAM / capacity, port list, one line per port (status, speed, EPG / VLAN summary, SFP, CRC, errors, LLDP / CDP neighbor). **Click a port** -> details: reason the port is down, EPGs and VLANs on the port (encap and internal VLAN, trunk / access, through a port-channel / vPC, deployed or only configured), error counters, transceiver (PID / serial), optical Rx / Tx / temperature with warn / alarm thresholds (copper / UTP: *Not available*), LLDP / CDP | ✅ (CDP ⏳) |
+| **Resource Check** | Free VLANs per pool / per IPG (AAEP -> domain -> pool), free ports per leaf, TCAM / capacity per leaf (Policy CAM, L2 / L3 endpoints, LPM, VLAN) + zoning rule count | ⚠️ TCAM / capacity only |
+| **Settings** | Customer wizard (APIC sites, NDO / ND cluster, SSH to leaf, Test Connection, firewall boundary, request-form column mapping), Export / Import per customer (pick which credentials, API Runner library and form templates go into the file, and what to take on import), Audit Log, Check for updates | ✅ APIC and NDO login (3-node ND cluster) |
 
 - Every result table can be exported to **CSV** and **Excel**.
 - **Read-only towards the fabric.** Configuration changes only happen through the API Runner, after Preview
@@ -44,9 +47,10 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Status & limitations
 
-Every feature is tested automatically against a **fake APIC**. Proven on a real fabric so far: APIC & NDO login
-(3-node ND cluster), API Runner against NDO, Policy CAM / TCAM and L2 / L3 endpoint readings, Contract Check with
-named filter ports, Leaf Health, Policy Hygiene and Request Triage (an ~800-row form in about 10 seconds).
+Every feature is tested automatically against a **fake APIC** (108 automated tests). What has also been tested on a
+real fabric (ACI 6.1, two sites, read-only) is shown in the **Real fabric** column of the feature table above.
+Running checks in the background and the Stop button were tested on the real fabric too; the "lost connection"
+alert was tested only with a simulated outage so far.
 
 | Area | Missing / needs verification on a real fabric |
 |---|---|
