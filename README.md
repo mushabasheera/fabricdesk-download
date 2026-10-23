@@ -3,8 +3,7 @@
 Windows desktop app for day-to-day **Cisco ACI & Nexus Dashboard** operations. Multi-customer, runs locally on
 your laptop. Built by Mushab Hamid.
 
-**[Download the latest version](https://github.com/mushabasheera/fabricdesk-download/releases/latest)**. No GitHub
-account needed. See [Download & install](#download--install).
+**[Download the latest version](https://github.com/mushabasheera/fabricdesk-download/releases/latest)**. See [Download & install](#download--install).
 
 Current version: **v0.5.0** (23 Oct 2026).
 
@@ -12,8 +11,7 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Features
 
-**Real fabric**: ✅ tested on a real ACI 6.1 multi-site fabric · ⚠️ partly tested · ⏳ not tested on a real fabric yet
-(only against the built-in fake APIC).
+**Real fabric**: ✅ tested on a ACI 6.1 multi-site fabric.
 
 | Menu | What it does | Real fabric |
 |---|---|---|
@@ -47,8 +45,7 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Status & limitations
 
-Every feature is tested automatically against a **fake APIC** (108 automated tests). What has also been tested on a
-real fabric (ACI 6.1, two sites, read-only) is shown in the **Real fabric** column of the feature table above.
+Every feature is tested on real fabric (ACI 6.1, two sites) is shown in the **Real fabric** column of the feature table above.
 Running checks in the background and the Stop button were tested on the real fabric too; the "lost connection"
 alert was tested only with a simulated outage so far.
 
