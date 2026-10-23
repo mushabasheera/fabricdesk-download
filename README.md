@@ -3,7 +3,8 @@
 Windows desktop app for day-to-day **Cisco ACI & Nexus Dashboard** operations. Multi-customer, runs locally on
 your laptop. Built by Mushab Hamid.
 
-**[Download the latest version](https://github.com/mushabasheera/fabricdesk-download/releases/latest)**. See [Download & install](#download--install).
+**[Download the latest version](https://github.com/mushabasheera/fabricdesk-download/releases/latest)**. No GitHub
+account needed. See [Download & install](#download--install).
 
 Current version: **v0.5.0** (23 Oct 2026).
 
@@ -11,7 +12,7 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Features
 
-**Real fabric**: ✅ tested on a ACI 6.1 multi-site fabric.
+**Real fabric**: ✅ tested on a real fabric (ACI 6.1, two sites) · ⚠️ partly tested · ⏳ not tested on a real fabric yet
 
 | Menu | What it does | Real fabric |
 |---|---|---|
@@ -45,9 +46,13 @@ Current version: **v0.5.0** (23 Oct 2026).
 
 ## Status & limitations
 
-Every feature is tested on real fabric (ACI 6.1, two sites) is shown in the **Real fabric** column of the feature table above.
-Running checks in the background and the Stop button were tested on the real fabric too; the "lost connection"
-alert was tested only with a simulated outage so far.
+**Tested on a real fabric** (ACI 6.1, two sites): Endpoint Locator, Contract Check, Request Triage, Policy Hygiene,
+Leaf Health, TCAM / capacity in Resource Check, API Runner against NDO, APIC and NDO login (3-node ND cluster),
+background checks and the Stop button.
+
+**Not tested on a real fabric yet**: Change Diff, Fault & Health, free VLANs / free ports in Resource Check, API
+Runner writes to the APIC, Ping / Traceroute from a leaf, CDP neighbors in Leaf Health, and the alert when the
+APIC / Nexus Dashboard connection drops.
 
 | Area | Missing / needs verification on a real fabric |
 |---|---|
